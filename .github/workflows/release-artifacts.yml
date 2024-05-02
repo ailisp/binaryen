@@ -2,6 +2,8 @@ on:
   push:
     tags:
       - "v[0-9]+.*"
+    branches:
+      - add-linux-arm64
 jobs:
   create_release:
     name: Create release
@@ -25,7 +27,7 @@ jobs:
     runs-on: ${{ matrix.platform }} # we run many different builds
     strategy:
       matrix:
-        platform: [ubuntu-20.04, macos-latest]
+        platform: [ubuntu-22.04, buildjet-2vcpu-ubuntu-2204-arm, macos-13, macos-14]
     steps:
       # checkout
       - name: Checkout code
