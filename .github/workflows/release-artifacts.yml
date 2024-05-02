@@ -25,13 +25,13 @@ jobs:
     runs-on: ${{ matrix.platform }} # we run many different builds
     strategy:
       matrix:
-        platform: [ubuntu-20.04, macos-latest]
+        platform: [ubuntu-20.04, buildjet-2vcpu-ubuntu-2204-arm, macos-13, macos-14]
     steps:
       # checkout
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Build binaryen
-        run: cmake . && make
+        run: cmake . && make -j2
       - name: Build wasi-stub
         run: cd wasi-stub && ./build.sh && cd ..
       - name: Package release asset
