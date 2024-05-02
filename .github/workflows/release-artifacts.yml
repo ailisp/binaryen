@@ -27,19 +27,19 @@ jobs:
     runs-on: ${{ matrix.platform }} # we run many different builds
     strategy:
       matrix:
-        platform: [ubuntu-22.04, buildjet-2vcpu-ubuntu-2204-arm, macos-13, macos-14]
+        platform: [ubuntu-20.04, buildjet-2vcpu-ubuntu-2004-arm, macos-13, macos-14]
     steps:
       # checkout
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Build binaryen
-        run: cmake . && make -j
+        run: cmake . && make -j2
       - name: Build wasi-stub
         run: cd wasi-stub && ./build.sh && cd ..
       - name: Package release asset
         run: tar -czvf binaryen.tar.gs lib wasi-stub/run.sh wasi-stub/wasi-stub
       - name: Print release
-        run: cat binaryen-${{ runner.os }}-${{ runner.arch }}.tar.gz
+        run: echo binaryen-${{ runner.os }}-${{ runner.arch }}.tar.gz
       # - name: Upload release asset
       #   uses: actions/upload-release-asset@v1
       #   env:
