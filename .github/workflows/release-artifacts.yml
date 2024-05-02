@@ -33,7 +33,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v1
       - name: Build binaryen
-        run: cmake . && make
+        run: cmake . && make -j
       - name: Build wasi-stub
         run: cd wasi-stub && ./build.sh && cd ..
       - name: Package release asset
